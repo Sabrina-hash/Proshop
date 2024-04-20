@@ -10,11 +10,14 @@ import { toast } from 'react-toastify';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 const LoginScreen = () => {
+     // State hooks for managing email and password input fields
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+      // Hooks for Redux dispatch and React Router navigation
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [login, { isLoading }] = useLoginMutation();
+      // Accessing user information from Redux store
     const { userInfo } = useSelector((state) => state.auth);
     const { search } = useLocation();
     const sp = new URLSearchParams(search);
@@ -25,7 +28,7 @@ const LoginScreen = () => {
             navigate(redirect);
         }
     }, [userInfo, redirect, navigate]);
-
+ // Function to handle form submission for login
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
@@ -36,19 +39,19 @@ const LoginScreen = () => {
             toast.error(err?.data?.message || err.error);
         }
     };
-
+// Google login success handler
     const handleGoogleSuccess = (credentialResponse) => {
       console.log("Google Credential:", credentialResponse);
 
       const token = credentialResponse.credential;
 
-      dispatch(setCredentials({ token }));
+      dispatch(setCredentials({ token })); // Store token in Redux store
   
       toast.success("Logged in with Google!");
       navigate(redirect);
   };
   
-
+       // Google login failure handler
     const handleGoogleFailure = (error) => {
         console.error("Google Login Failed:", error);
         toast.error("Google login failed. Please try again.");
