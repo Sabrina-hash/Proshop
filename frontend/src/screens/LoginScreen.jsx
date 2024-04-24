@@ -94,14 +94,15 @@ const LoginScreen = () => {
                 </Form>
 
                 <GoogleLogin
+                    key="google-login"
                     clientId="847391184628-4dibegrof0mvc9athot7mulh744hro9l.apps.googleusercontent.com"
                     onSuccess={handleGoogleSuccess}
                     onError={handleGoogleFailure}
                     scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
                     buttonText="Sign in with Google"
                 />
-
-                <Row className="py-3">
+ 
+                   <Row key="register-link" className="py-3">
                     <Col>
                         New Customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
                     </Col>

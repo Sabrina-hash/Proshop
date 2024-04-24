@@ -16,18 +16,24 @@
   "author": "Jasmine Masopeh",
   "license": "MIT",
   "dependencies": {
-    "@react-oauth/google": "^0.12.1",
+    "@react-oauth/google": "^0.11.0",
+    "@restart/ui": "^1.6.8",
+    "@ungap/structured-clone": "^1.2.0",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.2",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "google-auth-library": "^9.8.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^8.2.2",
     "nodemon": "^3.0.3"
   }
