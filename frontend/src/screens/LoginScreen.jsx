@@ -10,25 +10,29 @@ import { toast } from 'react-toastify';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 const LoginScreen = () => {
-     // State hooks for managing email and password input fields
+    // State hooks for managing email and password input fields
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-      // Hooks for Redux dispatch and React Router navigation
+    // Hooks for Redux dispatch and React Router navigation
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [login, { isLoading }] = useLoginMutation();
-      // Accessing user information from Redux store
+    // Accessing user information from Redux store
     const { userInfo } = useSelector((state) => state.auth);
     const { search } = useLocation();
     const sp = new URLSearchParams(search);
     const redirect = sp.get("redirect") || '/';
+
+    // Console log to check the client ID
+    console.log("Client ID:","847391184628-4dibegrof0mvc9athot7mulh744hro9l.apps.googleusercontent.com"); // This line checks the client ID
 
     useEffect(() => {
         if (userInfo) {
             navigate(redirect);
         }
     }, [userInfo, redirect, navigate]);
- // Function to handle form submission for login
+
+    // Function to handle form submission for login
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
@@ -39,26 +43,24 @@ const LoginScreen = () => {
             toast.error(err?.data?.message || err.error);
         }
     };
-// Google login success handler
+
+    // Google login success handler
     const handleGoogleSuccess = (credentialResponse) => {
-      console.log("Google Credential:", credentialResponse);
+        console.log("Google Credential:", credentialResponse);
+        const token = credentialResponse.credential;
+        dispatch(setCredentials({ token })); // Store token in Redux store
+        toast.success("Logged in with Google!");
+        navigate(redirect);
+    };
 
-      const token = credentialResponse.credential;
-
-      dispatch(setCredentials({ token })); // Store token in Redux store
-  
-      toast.success("Logged in with Google!");
-      navigate(redirect);
-  };
-  
-       // Google login failure handler
+    // Google login failure handler
     const handleGoogleFailure = (error) => {
         console.error("Google Login Failed:", error);
         toast.error("Google login failed. Please try again.");
     };
 
     return (
-        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+        <GoogleOAuthProvider clientId="847391184628-4dibegrof0mvc9athot7mulh744hro9l.apps.googleusercontent.com">
             <FormContainer>
                 <h1>Sign In</h1>
                 <Form onSubmit={submitHandler}>
@@ -69,6 +71,7 @@ const LoginScreen = () => {
                             placeholder="Enter email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            autoComplete="email"
                         />
                     </Form.Group>
 
@@ -79,6 +82,7 @@ const LoginScreen = () => {
                             placeholder="Enter password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="current-password"
                         />
                     </Form.Group>
 
@@ -90,8 +94,10 @@ const LoginScreen = () => {
                 </Form>
 
                 <GoogleLogin
+                    clientId="847391184628-4dibegrof0mvc9athot7mulh744hro9l.apps.googleusercontent.com"
                     onSuccess={handleGoogleSuccess}
                     onError={handleGoogleFailure}
+                    scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
                     buttonText="Sign in with Google"
                 />
 
