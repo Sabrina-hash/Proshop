@@ -16,13 +16,10 @@
   "author": "Jasmine Masopeh",
   "license": "MIT",
   "dependencies": {
-<<<<<<< HEAD
     "@react-oauth/google": "^0.11.0",
     "@restart/ui": "^1.6.8",
     "@ungap/structured-clone": "^1.2.0",
-=======
     "@emailjs/browser": "^4.3.3",
->>>>>>> origin/main
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
@@ -34,12 +31,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.0",
     "multer": "^1.4.5-lts.1",
-<<<<<<< HEAD
-    "react-transition-group": "^4.4.5"
-=======
+    "react-transition-group": "^4.4.5",
     "prop-types": "^15.8.1",
     "serve-favicon": "^2.5.0"
->>>>>>> origin/main
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
